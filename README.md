@@ -6,8 +6,6 @@
 
 <h2>🚀 Start React</h2>
 
-To start the NBA Game Predictor client application, navigate to the `nba-predictor` directory and run the following commands:
-
 ```bash
 cd nba-predictor
 npm start
