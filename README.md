@@ -1,4 +1,4 @@
-<h1 align="center">🏀 NBA Game Predictor 🤖</h1>
+<h1 align="center">🏀 NBA Game Predictor</h1>
 
 <p align="center">
   <img src="https://i.imgur.com/6TpKerF.png" alt="NBA Game Predictor Banner">
@@ -15,6 +15,8 @@ To start the NBA Game Predictor client application, navigate to the `nba-predict
 ```bash
 cd nba-predictor
 npm start
+```
 
+hi
 
 
