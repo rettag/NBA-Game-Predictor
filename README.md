@@ -17,6 +17,11 @@ cd nba-predictor
 npm start
 ```
 
-hi
+<h2>🐍 Start Flask</h2>
+
+```bash
+cd api
+flask run --port 8000
+```
 
 
