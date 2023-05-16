@@ -15,7 +15,7 @@ npm start
 
 ```bash
 cd api
-flask run --port 8000
+flask run
 ```
 
 
