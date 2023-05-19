@@ -6,6 +6,8 @@ function App() {
   const [upcomingGames, setUpcomingGames] = useState([]);
   const [todayGames, setTodayGames] = useState([]);
   const [liveGames, setLiveGames] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const fetchScores = async() => {
     const params = {
@@ -28,14 +30,16 @@ function App() {
     });
   };
 
-  useEffect(() => {
+  function fetchGames() {
+    let isFetchCompleted = false;
+
     const params = {
       method: 'GET',
       headers: {
           'accept': 'application/json'
       }
     };
-
+    
     fetch('http://127.0.0.1:5000/', params)
       .then(response => {
         return response.json()
@@ -44,15 +48,45 @@ function App() {
         setUpcomingGames(data.upcoming_games);
         setTodayGames(data.today_games);
         console.log(data);
+
+        isFetchCompleted = true;
       })
       .catch(error => {
-        console.log(error)
+        console.log(error);
+
+        isFetchCompleted = true;
       });
 
-      const intervalId = setInterval(fetchScores, 300000);
-      return () => clearInterval(intervalId);
+  }
+
+  useEffect(() => {
+    fetchGames();
+    setIsLoading(true); 
+
+    const intervalId = setInterval(fetchScores, 300000);
+    return () => clearInterval(intervalId);
 
   }, []);
+
+  if (isLoading) {
+    return (
+      <>
+      <h1>NBA Basketball Game Predictor</h1>
+
+      <hr></hr>
+
+      <h2>Today's Games </h2>
+      <div className="loading-container">
+        <div className="loading"></div>
+      </div>
+
+      <h2>Upcoming Games </h2>
+      <div className="loading-container">
+        <div className="loading"></div>
+      </div>
+      </>
+    );
+  }
 
   return (
     <div>

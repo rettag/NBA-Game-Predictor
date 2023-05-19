@@ -66,9 +66,9 @@ const Logos = {
   }
 
 function formatGameClock(gameClock) {
-let minutes = parseInt(gameClock.slice(2, 4));
-let seconds = parseInt(gameClock.slice(5, 7));
-return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    let minutes = parseInt(gameClock.slice(2, 4));
+    let seconds = parseInt(gameClock.slice(5, 7));
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
   
 
