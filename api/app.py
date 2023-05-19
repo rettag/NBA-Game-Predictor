@@ -15,79 +15,34 @@ from nba_api.stats.endpoints import TeamDashboardByGeneralSplits
 app = Flask(__name__)
 CORS(app)
 
-def probability(team1, team2):
-    team_ids = {
-    "ATL": 1610612737,
-    "BOS": 1610612738,
-    "BKN": 1610612751,
-    "CHA": 1610612766,
-    "CHI": 1610612741,
-    "CLE": 1610612739,
-    "DAL": 1610612742,
-    "DEN": 1610612743,
-    "DET": 1610612765,
-    "GSW": 1610612744,
-    "HOU": 1610612745,
-    "IND": 1610612754,
-    "LAC": 1610612746,
-    "LAL": 1610612747,
-    "MEM": 1610612763,
-    "MIA": 1610612748,
-    "MIL": 1610612749,
-    "MIN": 1610612750,
-    "NOP": 1610612740,
-    "NYK": 1610612752,
-    "OKC": 1610612760,
-    "ORL": 1610612753,
-    "PHI": 1610612755,
-    "PHX": 1610612756,
-    "POR": 1610612757,
-    "SAC": 1610612758,
-    "SAS": 1610612759,
-    "TOR": 1610612761,
-    "UTA": 1610612762,
-    "WAS": 1610612764
-}
+def probability(team1, team2, avg_table, lr):
+    
+    home_stats = []
+    away_stats = []
 
-        
-    season_year = '2021-22'
+    for row in avg_table:
+        cols = row.find_all("td")
+        team = cols[0].text
+        team = team.split('*')[0]
 
-    team_dashboard = TeamDashboardByGeneralSplits(team_id=team_ids[team1], season=season_year)
+        if (team == team1):
+            home_stats = [cols[21].text, cols[18].text, cols[19].text, cols[20].text, cols[15].text, cols[8].text]
+        if (team == team2):
+            away_stats = [cols[21].text, cols[18].text, cols[19].text, cols[20].text, cols[15].text, cols[8].text]
 
-    team_stats = team_dashboard.get_data_frames()[0]
-    team_stats = team_stats[['TOV', 'AST', 'STL', 'BLK', 'OREB', 'FG3_PCT']]
-    team_stats = team_stats / 82
-    team_stats["FG3_PCT"] = team_stats["FG3_PCT"] * 82
+    df = pd.DataFrame({'TOV': home_stats[0], 'AST': home_stats[1], 'STL': home_stats[2], 'BLK': home_stats[3], 'OREB': home_stats[4], 'FG3_PCT': home_stats[5],
+                        'OPP_TOV': away_stats[0], 'OPP_OREB': away_stats[4], 'OPP_AST': away_stats[1], 'OPP_STL': away_stats[2], 'OPP_FG3_PCT': away_stats[5], 'OPP_BLK': away_stats[3]}, index=[1])
 
-    home_stats = team_stats
-
-    team_dashboard = TeamDashboardByGeneralSplits(team_id=team_ids[team2], season=season_year)
-
-    team_stats = team_dashboard.get_data_frames()[0]
-    team_stats = team_stats[['TOV', 'OREB', 'AST', 'STL', 'FG3_PCT', 'BLK']]
-    team_stats = team_stats / 82
-    team_stats["FG3_PCT"] = team_stats["FG3_PCT"] * 82
-
-    away_stats = team_stats
-
-    home_stats["OPP_TOV"] = away_stats["TOV"]
-    home_stats["OPP_OREB"] = away_stats["OREB"]
-    home_stats["OPP_AST"] = away_stats["AST"]
-    home_stats["OPP_STL"] = away_stats["STL"]
-    home_stats["OPP_FG3_PCT"] = away_stats["FG3_PCT"]
-    home_stats["OPP_BLK"] = away_stats["BLK"]
-
-    lr = joblib.load('logistic_regression.pkl')
-
-    proba = lr.predict_proba(home_stats)
+    proba = lr.predict_proba(df)
 
     print(proba)
     return proba[0][0], proba[0][1]
 
 @app.route('/', methods=['GET'])
 def get_games():
+    lr = joblib.load('logistic_regression.pkl')
     today = datetime.now().date()
-    print(today)
+    print("Running route / ")
 
     day_of_week = today.weekday()
 
@@ -128,6 +83,14 @@ def get_games():
     soup = BeautifulSoup(response.content, 'html.parser')
     table = soup.find('table', id='schedule')
 
+    # Average Team Stats
+    url1 = f"https://www.basketball-reference.com/leagues/NBA_2023.html"
+    response1 = requests.get(url1)
+    soup1 = BeautifulSoup(response1.content, "html.parser")
+
+    team_stats_table = soup1.find("table", id="per_game-team")
+    avg_table = team_stats_table.tbody.find_all("tr")
+
     upcoming_games = []
     today_games = []
     for row in table.find_all('tr')[1:]:
@@ -143,7 +106,7 @@ def get_games():
 
         cols = row.find_all('td')
 
-        team2_win_chance, team1_win_chance = probability(teams[cols[1].text], teams[cols[3].text])
+        team2_win_chance, team1_win_chance = probability(cols[1].text, cols[3].text, avg_table, lr)
 
         if (team2_win_chance > team1_win_chance):
             team2_win_chance = team2_win_chance * 100
