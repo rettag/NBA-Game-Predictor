@@ -18,4 +18,7 @@ cd api
 flask run
 ```
 
+![image](https://github.com/rettag/NBA-Game-Predictor/assets/73906088/7719c09d-9948-41d8-ac4f-c06b23d29982)
+
+
 
