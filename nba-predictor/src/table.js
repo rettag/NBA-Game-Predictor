@@ -72,8 +72,9 @@ function formatGameClock(gameClock) {
 }
   
 
-export default function Table({ data, live, is_today }) {
-    let rows = data.map(game => {
+export default function Table({ data, live, is_today, date, today }) {
+    if (today == date) {
+      let rows = data.map(game => {
         let team1_chance = parseInt(game.team1_win_chance);
         let team2_chance = parseInt(game.team2_win_chance);
 
@@ -92,6 +93,7 @@ export default function Table({ data, live, is_today }) {
 
         return (
             <tr key={game.team1_abv + game.team2_abv}>
+                <td>TBD</td>
                 <td className="team" > <img src={Logos[game.team2_abv]} /> {game.home} <div className="live">{home_score}</div> </td>
                 <td className={liveGame ? 'prob live' : 'prob'}>{team1_chance}%</td>
                 <td className="middle-column">
@@ -104,19 +106,82 @@ export default function Table({ data, live, is_today }) {
     });
 
     return (
-        <table className='table'>
-        <thead>
-          <tr>
-            <th>Home Team</th>
-            <th>Probability</th>
-            <th>Winning Probability</th>
-            <th>Probability</th>
-            <th>Away Team</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
+      <table className='table'>
+      <thead>
+        <tr>
+          <th>Result</th>
+          <th>Home Team</th>
+          <th>Probability</th>
+          <th>Winning Probability</th>
+          <th>Probability</th>
+          <th>Away Team</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows}
+      </tbody>
+    </table>
+  );
+    }
+    else {
+      console.log(date)
+      data = data.filter((element) => element.date === date);
+      console.log(data.length)
+
+      let rows = data.map(game => {
+        let team1_chance = parseInt(game.team1_win_chance);
+        let team2_chance = parseInt(game.team2_win_chance);
+
+        let team1_score = parseInt(game.team1_score);
+        let team2_score = parseInt(game.team2_score);
+
+        let result = '';
+        let is_correct = false;
+        if (team1_chance > team2_chance && team1_score > team2_score) {
+          result = 'CORRECT'
+          is_correct = true
+        }
+        if (team1_chance > team2_chance && team1_score < team2_score) {
+          result = 'INCORRECT'
+        }
+        if (team1_chance < team2_chance && team1_score > team2_score) {
+          result = 'INCORRECT'
+        }
+        if (team1_chance < team2_chance && team1_score < team2_score) {
+          result = 'CORRECT'
+          is_correct = true
+        }
+
+        return (
+            <tr key={game.team1_abv + game.team2_abv}>
+                <td className={is_correct ? "game_win" : "game_loss"}>{result}</td>
+                <td className="team" > <img src={Logos[game.team2_abv]} /> {game.home} <div className={game.is_team1_win ? "game_win past" : "game_loss past"}>{game.team1_score}</div> </td>
+                <td className={game.is_team1_win ? "game_win prob past" : "game_loss prob past"}>{team1_chance}%</td>
+                <td className="middle-column">
+                <Bar homePercent={team1_chance} awayPercent={team2_chance} /> <div className="past">Final</div>
+                </td>
+                <td className={game.is_team1_win ? "game_loss prob past" : "game_win prob past"}>{team2_chance}%</td>
+                <td className="team" > <img src={Logos[game.team1_abv]} /> {game.away} <div className={game.is_team1_win ? "game_loss past" : "game_win past"}>{game.team2_score}</div> </td>
+            </tr>   
+        );
+    });
+
+    return (
+      <table className='table'>
+      <thead>
+        <tr>
+          <th>Result</th>
+          <th>Home Team</th>
+          <th>Probability</th>
+          <th>Winning Probability</th>
+          <th>Probability</th>
+          <th>Away Team</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows}
+      </tbody>
+    </table>
     );
+    }
 }
