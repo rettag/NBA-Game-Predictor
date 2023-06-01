@@ -68,41 +68,72 @@ def get_games():
 
     year, month, day = str(today).split('-')
 
+    prev_year = year
+    prev_month = int(month) - 1
+
+    if (prev_month < 10):
+        prev_month = "0" + str(prev_month)
+
+    prev_month = str(prev_month)
+
     month_name = month_dict[month]
     month_abv = month_dict_abv[month]
+
+    prev_month_name = month_dict[prev_month]
+    prev_month_abv = month_dict_abv[prev_month]
+
 
     full = "{}, {} {}, {}".format(day_name, month_abv, day, year)
 
     if int(month) > 9:
         year = int(year) + 1
 
+    if int(month) == 1:
+        prev_year -= 1
+
     url = 'https://www.basketball-reference.com/leagues/NBA_{}_games-{}.html'.format(year, month_name)
+    url2 = 'https://www.basketball-reference.com/leagues/NBA_{}_games-{}.html'.format(prev_year, prev_month_name)
 
     response = requests.get(url)
+    response2 = requests.get(url2)
 
     soup = BeautifulSoup(response.content, 'html.parser')
     table = soup.find('table', id='schedule')
 
-    # Average Team Stats
+    soup2 = BeautifulSoup(response2.content, 'html.parser')
+    table2 = soup2.find('table', id='schedule')
+
+    # Average Team Stats (
     url1 = f"https://www.basketball-reference.com/leagues/NBA_2023.html"
     response1 = requests.get(url1)
     soup1 = BeautifulSoup(response1.content, "html.parser")
 
     team_stats_table = soup1.find("table", id="per_game-team")
     avg_table = team_stats_table.tbody.find_all("tr")
+    # )
 
     upcoming_games = []
     today_games = []
+    past_games = []
+
+    # Upcoming Games and Today Games
+    count_games = 0
+    print(table)
     for row in table.find_all('tr')[1:]:
         if len(row.find_all('th')) > 1:
             continue
+        if count_games == 50:
+            break
 
         date = row.find_all('th')[0].text
 
         days = date.split(',')[1].split()[1]
 
-        if (int(days) < int(day)):
-            continue
+        weekday, month_and_day, year = date.split(',')
+        month_and_day = month_and_day.lstrip()
+        year = year.rstrip()
+        date = "{},{}".format(month_and_day, year)
+
 
         cols = row.find_all('td')
 
@@ -121,6 +152,103 @@ def get_games():
             team1_win_chance = team1_win_chance * 100
             team1_win_chance = math.ceil(team1_win_chance)
 
+        if (int(days) < int(day)):
+            team1_win = True
+            team2_win = True
+            team1_score = int(cols[4].text)
+            team2_score = int(cols[2].text)
+
+            if (team1_score > team2_score):
+                team1_win = True
+                team2_win = False
+            else:
+                team1_win = False
+                team2_win = True
+
+
+            game_dict = {
+                'team1_win_chance': team1_win_chance,
+                'team2_win_chance': team2_win_chance,
+                'date': date,
+                'team1': cols[1].text,
+                'team1_abv': teams[cols[1].text],
+                'team2': cols[3].text,
+                'team2_abv': teams[cols[3].text],
+                'home': cols[3].text,
+                'away': cols[1].text,
+                'is_team1_win': team1_win,
+                'is_team2_win': team2_win,
+                'team1_score': team1_score,
+                'team2_score': team2_score,
+            }
+
+            past_games.append(game_dict)
+
+        else:
+            game_dict = {
+                'team1_win_chance': team1_win_chance,
+                'team2_win_chance': team2_win_chance,
+                'date': date,
+                'team1': cols[1].text,
+                'team1_abv': teams[cols[1].text],
+                'team2': cols[3].text,
+                'team2_abv': teams[cols[3].text],
+                'home': cols[3].text,
+                'away': cols[1].text,
+            }
+
+
+            if (int(days) == int(day)):
+                today_games.append(game_dict)
+            else:
+                upcoming_games.append(game_dict)
+
+        count_games += 1
+
+    # Past Games
+    for row in table2.find_all('tr')[1:]:
+        if len(row.find_all('th')) > 1:
+            continue
+
+        date = row.find_all('th')[0].text
+
+        days = date.split(',')[1].split()[1]
+
+        weekday, month_and_day, year = date.split(',')
+        month_and_day = month_and_day.lstrip()
+        year = year.rstrip()
+        date = "{},{}".format(month_and_day, year)
+
+        cols = row.find_all('td')
+
+        team2_win_chance, team1_win_chance = probability(cols[1].text, cols[3].text, avg_table, lr)
+
+        if (team2_win_chance > team1_win_chance):
+            team2_win_chance = team2_win_chance * 100
+            team2_win_chance = math.ceil(team2_win_chance)
+
+            team1_win_chance = team1_win_chance * 100
+            team1_win_chance = math.floor(team1_win_chance)
+        else:
+            team2_win_chance = team2_win_chance * 100
+            team2_win_chance = math.floor(team2_win_chance)
+
+            team1_win_chance = team1_win_chance * 100
+            team1_win_chance = math.ceil(team1_win_chance)
+
+        team1_win = True
+        team2_win = True
+        team1_score = int(cols[4].text)
+        team2_score = int(cols[2].text)
+
+        if (team1_score > team2_score):
+            team1_win = True
+            team2_win = False
+        else:
+            team1_win = False
+            team2_win = True
+
+
         game_dict = {
             'team1_win_chance': team1_win_chance,
             'team2_win_chance': team2_win_chance,
@@ -131,14 +259,16 @@ def get_games():
             'team2_abv': teams[cols[3].text],
             'home': cols[3].text,
             'away': cols[1].text,
+            'is_team1_win': team1_win,
+            'is_team2_win': team2_win,
+            'team1_score': team1_score,
+            'team2_score': team2_score,
         }
 
-        if (int(days) == int(day)):
-            today_games.append(game_dict)
-        else:
-            upcoming_games.append(game_dict)
+        past_games.append(game_dict)
 
-    content = {'upcoming_games': upcoming_games, 'today_games': today_games}
+
+    content = {'upcoming_games': upcoming_games, 'today_games': today_games, 'past_games': past_games}
     return jsonify(content)
 
 
