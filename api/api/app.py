@@ -15,14 +15,24 @@ from nba_api.stats.endpoints import TeamDashboardByGeneralSplits
 app = Flask(__name__)
 CORS(app)
 
+try:
+    lr = joblib.load('logistic_regression.pkl')
+except Exception as e:
+    print(f"Error loading the model: {e}")
+
 def probability(team1, team2, lr):
     
     url1 = f"https://www.basketball-reference.com/teams/{team1}/2023.html"
     url2 = f"https://www.basketball-reference.com/teams/{team2}/2023.html"
     
-    response1 = requests.get(url1)
+    try:
+        response1 = requests.get(url1)
+        response2 = requests.get(url2)
+    except requests.exceptions.RequestException as e:
+        print(f"Error occurred: {e}")
+        return None, None
+    
     html_content1 = response1.text
-    response2 = requests.get(url2)
     html_content2 = response2.text
 
     soup1 = BeautifulSoup(html_content1, "html.parser")
@@ -57,7 +67,6 @@ def probability(team1, team2, lr):
 
 @app.route('/', methods=['GET'])
 def get_games():
-    lr = joblib.load('logistic_regression.pkl')
     today = datetime.now().date()
     print("Running route / ")
 
