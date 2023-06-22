@@ -1,8 +1,10 @@
 from nba_api.stats.endpoints import leaguegamefinder
 from sklearn.linear_model import LogisticRegression
+from sklearn import svm
 from sklearn.model_selection import train_test_split
 import pandas as pd
 from sklearn.metrics import accuracy_score
+import sys
 
 from nba_api.stats.endpoints import leaguestandingsv3
 from nba_api.stats.endpoints import TeamDashboardByGeneralSplits
@@ -29,7 +31,7 @@ games = games.groupby("GAME_ID", group_keys=False).apply(add_away)
 
 games = games.dropna()
 del games['GAME_ID']
-print(games)
+#print(games)
 
 # Create separate dataframes for input features and target variable
 X = games.drop('WL', axis=1)
@@ -38,14 +40,25 @@ y = games['WL'].map({'W': 1, 'L': 0}).astype(int)
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5, random_state=0)
 
+# Create an instance of a Support Vector Machine (SVM) to classify data as win/loss
+classifier = svm.SVC(kernel='linear')
+classifier.fit(X_train, y_train)
+
+Ypred = classifier.predict(X=X_test)
+acc = accuracy_score(y_test, Ypred)
+print("Linear Classification (SVM) Accuracy:", acc)
+joblib.dump(classifier, 'svm.pkl')
+
+
 # Create and train a logistic regression model
 lr = LogisticRegression()
 lr.fit(X_train, y_train)
 
+
 # Calculate the accuracy of the model
 y_pred = lr.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
-print("Accuracy:", accuracy)
+print("Logistic Accuracy:", accuracy)
 
 proba = lr.predict_proba(X_test)
 
