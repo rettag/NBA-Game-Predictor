@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import Table from './table';
+import Basketball from './BasketballAnimation'
 
 function App() {
   let fetchData = 0;
@@ -16,6 +17,7 @@ function App() {
   const [year, setYear] = useState('');
   const [today, setToday] = useState('');
   const [count, setCount] = useState(0);
+  const [homePage, setHomePage] = useState(false);
 
 
 
@@ -150,45 +152,88 @@ function App() {
     }
     setCount(count + 1)
   }
-
-  if (isLoading) {
-    return (
-      <>
-      <h1>NBA Basketball Game Predictor</h1>
-
-      <hr></hr>
-
-      <div className='arrows'>
-        <button onClick={backOneDay}>
-          <FontAwesomeIcon icon={faArrowLeft} size="2x"/>
-          <div>Last Day</div>
-        </button>
-
-        <div className='date'>{month} {day}, {year}</div>
-
-        <button onClick={forwardOneDay}>
-          <FontAwesomeIcon icon={faArrowRight} size="2x"/>
-          <div>Next Day</div>
-        </button>
-      </div>
-
-      <h2>Today's Games </h2>
-      <div className="loading-container">
-        <div className="loading"></div>
-      </div>
-
-      <h2>Upcoming Games </h2>
-      <div className="loading-container">
-        <div className="loading"></div>
-      </div>
-      </>
-    );
+  function PageJump() {
+    setHomePage(false);
   }
+  function HomePageJump() {
+    setHomePage(true);
+  }
+  if (homePage === false) {
+    if (isLoading) {
+      return (
+        <>
+        <h1>NBA Basketball Game Predictor</h1>
+        <button onClick = {HomePageJump}> 
+        <FontAwesomeIcon icon={faArrowRight} size="2x" />
+        </button>
+        <hr></hr>
 
-  if (today == (month + " " + day + ", " + year)) {
-    return (
+        <div className='arrows'>
+          <button onClick={backOneDay}>
+            <FontAwesomeIcon icon={faArrowLeft} size="2x"/>
+            <div>Last Day</div>
+          </button>
+
+          <div className='date'>{month} {day}, {year}</div>
+
+          <button onClick={forwardOneDay}>
+            <FontAwesomeIcon icon={faArrowRight} size="2x"/>
+            <div>Next Day</div>
+          </button>
+        </div>
+
+        <h2>Today's Games </h2>
+        <div className="loading-container">
+          <div className="loading"></div>
+        </div>
+
+        <h2>Upcoming Games </h2>
+        <div className="loading-container">
+          <div className="loading"></div>
+        </div>
+        </>
+      );
+    }
+
+    if (today == (month + " " + day + ", " + year)) {
+      return (
+        <div>
+          <h1>NBA Basketball Game Predictor</h1>
+          <button onClick = {HomePageJump}> 
+          <FontAwesomeIcon icon={faArrowRight} size="2x" />
+          </button>
+          <hr></hr>
+
+          <div className='arrows'>
+            <button onClick={backOneDay} >
+              <FontAwesomeIcon icon={faArrowLeft} size="2x" />
+              <div>Last Day</div>
+            </button>
+
+            <div className='date'>{month} {day}, {year}</div>
+
+            <button onClick={forwardOneDay} >
+              <FontAwesomeIcon icon={faArrowRight} size="2x" />
+              <div>Next Day</div>
+            </button>
+          </div>
+
+          <h2>Today's Games </h2>
+          <Table data={todayGames} live={liveGames} is_today={true} date={month + " " + day + ", " + year} today={today} />
+
+          <h2>Upcoming Games</h2>
+          <Table data={upcomingGames} live={liveGames} is_today={false} date={month + " " + day + ", " + year} today={today} />
+        </div>
+
+      );
+    }
+    else {
+      return (
       <div>
         <h1>NBA Basketball Game Predictor</h1>
+        <button onClick = {HomePageJump}> 
+        <FontAwesomeIcon icon={faArrowRight} size="2x" />
+        </button>
 
         <hr></hr>
 
@@ -206,41 +251,29 @@ function App() {
           </button>
         </div>
 
-        <h2>Today's Games </h2>
-        <Table data={todayGames} live={liveGames} is_today={true} date={month + " " + day + ", " + year} today={today} />
+        <h2>Games</h2>
+        <Table data={pastGames} live={liveGames} is_today={false} date={month + " " + day + ", " + year} today={today} />
 
-        <h2>Upcoming Games</h2>
-        <Table data={upcomingGames} live={liveGames} is_today={false} date={month + " " + day + ", " + year} today={today} />
       </div>
-
-    );
+      );
+    }
   }
   else {
     return (
-    <div>
-      <h1>NBA Basketball Game Predictor</h1>
-
-      <hr></hr>
-
-      <div className='arrows'>
-        <button onClick={backOneDay} >
-          <FontAwesomeIcon icon={faArrowLeft} size="2x" />
-          <div>Last Day</div>
+      <div>
+        <h1>NBA Basketball Game Predictor</h1>
+        <hr></hr>
+        <h3>Here is our amazing AI-engined NBA game predictor!</h3>
+        <h4>A resource for those interested in NBA Games. Come and know the chances of your favorite</h4>
+        <h4>NBA team winning in just a few clicks!</h4>
+        
+        <button onClick = {PageJump}> 
+        <FontAwesomeIcon icon={faArrowRight} size="2x" />
+            <div style={{ fontFamily: 'FontName, sans-serif' }}>View Prediction!</div>
         </button>
-
-        <div className='date'>{month} {day}, {year}</div>
-
-        <button onClick={forwardOneDay} >
-          <FontAwesomeIcon icon={faArrowRight} size="2x" />
-          <div>Next Day</div>
-        </button>
+        <Basketball/>
       </div>
-
-      <h2>Games</h2>
-      <Table data={pastGames} live={liveGames} is_today={false} date={month + " " + day + ", " + year} today={today} />
-
-    </div>
-    );
+      );
   }
 }
 
