@@ -40,6 +40,7 @@
 
 ```bash
 cd nba-predictor
+npm i
 npm start
 ```
 
