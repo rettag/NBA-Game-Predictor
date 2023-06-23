@@ -1,6 +1,6 @@
 <h1 align="center">🏀 NBA Game Predictor</h1>
 
-<p align="center">
+<p>
   We are a team of five University of
             Michigan students who, over the spring semester, developed
             an NBA basketball game predictor using the power of machine
