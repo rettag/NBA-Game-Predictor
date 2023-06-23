@@ -82,12 +82,22 @@
     background-color: rgb(228, 63, 41);
 }
 
-/* Headshots */
+/* Team */
+#team {
+    padding-top: 8vmin;
+    font-size: 3vmin;
+    font-weight: 600;
+}
+
+#team-title {
+    text-align: center;
+    padding-bottom: 4vmin;
+}
+
 .headshots {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding-top: 15vmin;
 }
 
 .headshot {

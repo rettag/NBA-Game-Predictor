@@ -38,12 +38,15 @@ function Home() {
         </div>
       </div>
 
-      <div className='headshots'>
-        <img className="headshot" src={Rett} alt="Rett"></img>
-        <img className="headshot" src={Filler} alt="filler"></img>
-        <img className="headshot" src={Filler} alt="filler"></img>
-        <img className="headshot" src={Filler} alt="filler"></img>
-        <img className="headshot" src={Filler} alt="filler"></img>
+      <div id="team">
+        <div id="team-title">Our Team</div>
+        <div className='headshots'>
+          <img className="headshot" src={Rett} alt="Rett"></img>
+          <img className="headshot" src={Filler} alt="filler"></img>
+          <img className="headshot" src={Filler} alt="filler"></img>
+          <img className="headshot" src={Filler} alt="filler"></img>
+          <img className="headshot" src={Filler} alt="filler"></img>
+        </div>
       </div>
 
       <Link id="home-to-predictor-button" to="/predictor">
