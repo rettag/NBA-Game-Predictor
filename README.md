@@ -20,19 +20,19 @@
 
 <h3 align="center">Home Screen</h3>
   <kbd>
-    <img src="https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot1.PNG" alt="DribbleBot1" style="border: 3px solid black;" />
+    <img src="https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot1.PNG" alt="DribbleBot1" />
   </kbd>
 
 
 <h3 align="center">Welcome Screen</h3>
   <kbd>
-    ![assets/DribbleBot3.png](https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot3.PNG)
+    <img src="https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot3.PNG" alt="DribbleBot3" />
   </kbd>
 
 
 <h3 align="center">Predictor Screen</h3>
   <kbd>
-    ![assets/DribbleBot4.png](https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot4.PNG)
+    <img src="https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot4.PNG" alt="DribbleBot4" />
   </kbd>
 
 
