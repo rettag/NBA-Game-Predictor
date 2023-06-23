@@ -26,7 +26,7 @@
 
 <h3 align="center">Welcome Screen</h3>
 
-![assets/DribbleBot2.png](https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot2.PNG)
+![assets/DribbleBot3.png](https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot3.PNG)
 
 
 
