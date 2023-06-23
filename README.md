@@ -19,21 +19,21 @@
 <h2 align="center">Screens</h2>
 
 <h3 align="center">Home Screen</h3>
-
-![assets/DribbleBot1.png](https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot1.PNG)
-
+  <kbd>
+    ![assets/DribbleBot1.png](https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot1.PNG)
+  </kbd>
 
 
 <h3 align="center">Welcome Screen</h3>
-
-![assets/DribbleBot3.png](https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot3.PNG)
-
+  <kbd>
+    ![assets/DribbleBot3.png](https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot3.PNG)
+  </kbd>
 
 
 <h3 align="center">Predictor Screen</h3>
-
-![assets/DribbleBot4.png](https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot4.PNG)
-
+  <kbd>
+    ![assets/DribbleBot4.png](https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot4.PNG)
+  </kbd>
 
 
 <h2>🚀 Start React</h2>
