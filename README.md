@@ -1,7 +1,19 @@
 <h1 align="center">🏀 NBA Game Predictor</h1>
 
 <p align="center">
-  The NBA Game Predictor is a project that uses machine learning algorithms to predict the outcome of NBA games. It uses a database of historical NBA game data to train a machine learning model that can predict the outcome of future games with a high degree of accuracy.
+  We are a team of five University of
+            Michigan students who, over the spring semester, developed
+            an NBA basketball game predictor using the power of machine
+            learning. Combining our passion for basketball, expertise
+            in data analysis, and cutting-edge machine learning 
+            techniques, we dedicated ourselves to collecting and
+            analyzing extensive game data. Through meticulous 
+            research, advanced algorithms, and the utilization of
+            machine learning models, we crafted a sophisticated 
+            predictor that offers valuable insights and accurate 
+            forecasts for upcoming NBA matchups. Explore our website 
+            and let our predictor enhance your love for the sport 
+            and add excitement to your basketball journey!
 </p>
 
 ![image](https://github.com/rettag/NBA-Game-Predictor/assets/73906088/7719c09d-9948-41d8-ac4f-c06b23d29982)
