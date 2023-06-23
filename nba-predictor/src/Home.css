@@ -1,0 +1,102 @@
+.home-body {
+    background-color: #ff9b3ee8;
+    width: 100%;
+    height: 100%;
+    line-height: 25px;
+    letter-spacing: 0.5px;
+}
+
+/* Title & Logo */
+#home-title-and-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2vmin;
+}
+
+#home-title {
+    font-size: 6vmin;
+    font-weight: 600;
+}
+
+#home-logo {
+    height: 11vmin;
+    width: 11vmin;
+}
+
+/* About Us */
+#about {
+    display: flex;
+    flex-direction: column;
+    margin: auto auto;
+    width: 85%;
+    transition: transform 0.50s ease-in-out;
+    padding-top: 5vmin;
+}
+
+#about-title {
+    font-size: 3vmin;
+    font-weight: 600;
+    padding-bottom: 2vmin;
+}
+
+#about-text {
+    border-radius: 1.5vmin;
+    padding: 2vmin;
+    background-color: rgb(255, 255, 255);
+    font-size: 2vmin;
+    font-weight: 500;
+    color: rgb(19, 19, 19);
+}
+
+#about:hover {
+    transform: scale(1.03);
+}
+
+/* Predictor Button */
+#home-to-predictor-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 3vmin;
+    z-index: 5;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(255, 71, 47);
+    border-radius: 5vmin;
+    text-decoration: none;
+    color: white;
+
+    height: 7vmin;
+    width: 32vmin;
+    font-size: 3vmin;
+}
+
+#home-to-predictor-button-name {
+    padding-right: 1vmin;
+}
+
+#home-to-predictor-button:hover {
+    background-color: rgb(228, 63, 41);
+}
+
+/* Headshots */
+.headshots {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: 15vmin;
+}
+
+.headshot {
+    width: 15vmin;
+    height: 15vmin;
+    border-radius: 50%;
+    transition: transform 0.50s ease-in-out;
+}
+
+.headshot:hover {
+    transform: scale(1.10);
+}

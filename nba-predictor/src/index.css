@@ -1,11 +1,18 @@
-body {
-  margin: 0;
-  font-family: 'Oswald', sans-serif;
-  background-color: rgb(221, 111, 68);
-  color: rgb(255, 255, 255);
+html {
+  height: 100%;
+  width: 100%;
+  background-color: #ff9b3ee8;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  font-family: 'Montserrat';
+  color: rgb(255, 255, 255);
+  height: 100%;
+  width: 100%;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
 }
