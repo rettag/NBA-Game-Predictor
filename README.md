@@ -1,6 +1,6 @@
 <h1 align="center">🏀 NBA Game Predictor</h1>
 
-<kbd>
+<p>
   We are a team of five University of
             Michigan students who, over the spring semester, developed
             an NBA basketball game predictor using the power of machine
@@ -14,7 +14,7 @@
             forecasts for upcoming NBA matchups. Explore our website 
             and let our predictor enhance your love for the sport 
             and add excitement to your basketball journey!
-</kbd>
+</p>
 
 <h2 align="center">Screens</h2>
 
