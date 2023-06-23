@@ -19,11 +19,11 @@
 <h2 align="center">Screens</h2>
 
 <h3 align="center">Home Screen</h3>
-![DribbleBot1](assets/DribbleBot1.PNG)
+![DribbleBot1](assets/DribbleBot1.png)
 
 
 
-<h3 align="center">Welcome Screen Screen</h3>
+<h3 align="center">Welcome Screen</h3>
 ![DribbleBot3](https://github.com/rettag/NBA-Game-Predictor/assets/DribbleBot3.PNG?raw=true)
 
 
