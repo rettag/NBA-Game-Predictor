@@ -19,7 +19,7 @@
 <h2 align="center">Screens</h2>
 
 <h3 align="center">Home Screen</h3>
-![DribbleBot1](https://github.com/rettag/NBA-Game-Predictor/assets/DribbleBot1.PNG)
+![DribbleBot1](assets/DribbleBot1.PNG)
 
 
 
