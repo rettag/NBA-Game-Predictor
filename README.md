@@ -20,7 +20,7 @@
 
 <h3 align="center">Home Screen</h3>
   <kbd>
-    <img src="https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot1.PNG" alt="DribbleBot1" style="border: 1px solid black;" />
+    <img src="https://github.com/rettag/NBA-Game-Predictor/raw/main/assets/DribbleBot1.PNG" alt="DribbleBot1" style="border: 3px solid black;" />
   </kbd>
 
 
