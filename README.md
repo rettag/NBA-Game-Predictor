@@ -20,18 +20,18 @@
 
 <p align="center">
 <h3 align="center">Home Screen</h3>
-![DribbleBot1](https://github.com/rettag/NBA-Game-Predictor/assets/73906088/eb85d830-0e7b-4c98-9e30-55c109f0578b)
 </p>
+![DribbleBot1](https://github.com/rettag/NBA-Game-Predictor/assets/73906088/eb85d830-0e7b-4c98-9e30-55c109f0578b)
 
 <p align="center">
 <h3 align="center">Welcome Screen Screen</h3>
-![DribbleBot3](https://github.com/rettag/NBA-Game-Predictor/assets/73906088/ad183e73-a99e-4735-a723-7d920ca97739)
 </p>
+![DribbleBot3](https://github.com/rettag/NBA-Game-Predictor/assets/73906088/ad183e73-a99e-4735-a723-7d920ca97739)
 
 <p align="center">
 <h3 align="center">Predictor Screen</h3>
-![DribbleBot4](https://github.com/rettag/NBA-Game-Predictor/assets/73906088/6ba96d8c-beb0-4b68-a294-320c867e41cc)
 </p>
+![DribbleBot4](https://github.com/rettag/NBA-Game-Predictor/assets/73906088/6ba96d8c-beb0-4b68-a294-320c867e41cc)
 
 
 <h2>🚀 Start React</h2>
