@@ -16,7 +16,8 @@
             and add excitement to your basketball journey!
 </p>
 
-![image](https://github.com/rettag/NBA-Game-Predictor/assets/73906088/7719c09d-9948-41d8-ac4f-c06b23d29982)
+![DribbleBot1](https://github.com/rettag/NBA-Game-Predictor/assets/73906088/eb85d830-0e7b-4c98-9e30-55c109f0578b)
+
 
 <h2>🚀 Start React</h2>
 
